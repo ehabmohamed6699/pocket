@@ -1,0 +1,15 @@
+<div class="w-full flex md:flex-col items-center justify-between md:py-12 px-4 md:px-0 md:w-20 h-20 md:h-screen border-b-2 md:border-b-0 md:border-r-2 shadow-black/50">
+    <img src="logo.png" alt="">
+    <ul class="flex md:flex-col gap-8  text-black/50">
+        <li>
+            <a [routerLink]="['/stats']" class="w-fit p-2 rounded-lg flex items-center justify-center transition-all duration-500" routerLinkActive="bg-primary text-white">
+                <mat-icon>bar_chart</mat-icon>
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/wallet']" class="w-fit p-2 rounded-lg flex items-center justify-center transition-all duration-500" routerLinkActive="bg-primary text-white">
+                <mat-icon>account_balance_wallet</mat-icon>      
+            </a>
+        </li>
+    </ul>
+</div>
