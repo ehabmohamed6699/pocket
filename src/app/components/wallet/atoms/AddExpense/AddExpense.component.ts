@@ -2,13 +2,12 @@ import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@ang
 import { IExpense } from '../../../../models/IExpense';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../../services/user.service';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-AddExpense',
   templateUrl: './AddExpense.component.html',
   styleUrls: ['./AddExpense.component.css'],
-  imports: [FormsModule, JsonPipe]
+  imports: [FormsModule]
 })
 export class AddExpenseComponent implements OnInit {
   expense: IExpense = {} as IExpense;
