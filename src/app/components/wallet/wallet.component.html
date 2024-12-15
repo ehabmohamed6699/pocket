@@ -1,4 +1,4 @@
-<div class="py-12 px-4 w-full">
+<div class="py-12 px-4 w-full h-auto md:h-screen md:overflow-y-auto">
     <h1 class="text-primary mb-8 text-2xl md:text-4xl">{{monthYear}}</h1>
     <h4 class="text-primary mb-8 text-base md:text-xl">My Income: {{history.totalIncome | currency:"EGP"}}</h4>
     <app-AddExpense [month]="datePipe.transform(date, 'yyyy-MM') || ''"></app-AddExpense>
