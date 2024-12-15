@@ -15,7 +15,7 @@ export class AddExpenseComponent implements OnInit {
   addCategoryOpen: boolean = false;
   @Input() month: string = '';
   @ViewChild('categorySelect') categorySelect !:ElementRef;
-  @ViewChild('catName') catName !:ElementRef;
+  catName: string = "";
   constructor(
     private userService: UserService,
     public renderer : Renderer2
@@ -53,10 +53,10 @@ export class AddExpenseComponent implements OnInit {
     this.addCategoryOpen = true
   }
 
-  addCategory(name: string){
-    this.userService.addCategory(name).subscribe(cat => {
-      this.changeCategory(name)
-      this.catName.nativeElement.value = ""
+  addCategory(){
+    this.userService.addCategory(this.catName).subscribe(cat => {
+      this.changeCategory(this.catName)
+      this.catName = ""
     })
   }
 

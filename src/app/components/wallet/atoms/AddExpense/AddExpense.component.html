@@ -60,12 +60,12 @@
           </div>
           <!-- Modal body -->
           <div class="p-4 md:p-5">
-              <form class="space-y-4" (submit)="addCategory(catName.value)">
+              <form class="space-y-4" (submit)="addCategory()">
                   <div>
                       <label for="catName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category name</label>
-                      <input #catName type="text" name="catName" id="catName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary outline-none block w-full p-2.5 " placeholder="Category name" required />
+                      <input [(ngModel)]="catName" type="text" name="catName" id="catName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary outline-none block w-full p-2.5 " placeholder="Category name" required />
                   </div>
-                  <button type="submit" class="w-full text-white bg-primary  focus:ring-4 focus:ring-primary focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center " data-modal-hide="new-category-modal">Add category</button>
+                  <button [disabled]="!catName" type="submit" class="w-full disabled:bg-secondary/50 text-white bg-primary  focus:ring-4 focus:ring-primary focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center " data-modal-hide="new-category-modal">Add category</button>
               </form>
           </div>
       </div>
