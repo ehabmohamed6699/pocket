@@ -1,0 +1,73 @@
+<form (submit)="addExpense(expense)" #expenseForm="ngForm">
+  <div class="grid gap-6 mb-6 md:grid-cols-4">
+    <div>
+      <label for="expense" class="block mb-2 text-sm font-medium text-primary">Expense</label>
+      <input [(ngModel)]="expense.name" type="text" id="expense" name="expense" class="bg-gray-50 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary block w-full p-2.5" placeholder="Expense Name" required />
+    </div>
+    <!-- <div>
+      <label for="category" class="block mb-2 text-sm font-medium text-primary">Category</label>
+      <select id="category" name="category" [(ngModel)]="expense.category" class="bg-gray-50 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary block w-full p-2.5">
+        @for (category of categories; track $index){
+          <option>{{category}}</option>
+          }
+        </select>
+      </div> -->
+      <div>
+        <label for="category" class="block mb-2 text-sm font-medium text-primary">Category</label>
+        <button id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider" class="text-gray-900 border border-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center w-full" type="button">{{expense.category || "Select a category"}} <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+        </svg>
+        </button>
+      
+      <!-- Dropdown menu -->
+      
+    </div>
+    
+    <div>
+      <label for="amount" class="block mb-2 text-sm font-medium text-primary">Amount</label>
+      <input [(ngModel)]="expense.amount" type="number" min="0" id="amount" name="amount" class="bg-gray-50 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary block w-full p-2.5" placeholder="Amount" required />
+    </div>
+    <div class="self-end">
+      <input type="submit" value="Add" class="text-white bg-primary focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center">
+    </div>
+  </div>
+</form>
+<div #categorySelect id="dropdownDivider" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-64">
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton">
+      @for (category of categories; track $index){
+        <li (click)="changeCategory(category)" class="block px-4 py-2 hover:bg-gray-100">{{category}}</li>
+        }
+    </ul>
+    <div class="py-2 px-4">
+      <button data-modal-target="new-category-modal" data-modal-toggle="new-category-modal" (click)="openAddCategory()" class="block px-4 py-2 mx-auto rounded-md bg-primary text-white w-full">Add new category</button>
+    </div>
+</div>
+<div id="new-category-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div class="relative p-4 w-full max-w-md max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow">
+          <!-- Modal header -->
+          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                  Add new category
+              </h3>
+              <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="new-category-modal">
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+              </button>
+          </div>
+          <!-- Modal body -->
+          <div class="p-4 md:p-5">
+              <form class="space-y-4" (submit)="addCategory(catName.value)">
+                  <div>
+                      <label for="catName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category name</label>
+                      <input #catName type="text" name="catName" id="catName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary outline-none block w-full p-2.5 " placeholder="Category name" required />
+                  </div>
+                  <button type="submit" class="w-full text-white bg-primary  focus:ring-4 focus:ring-primary focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center " data-modal-hide="new-category-modal">Add category</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div> 
