@@ -10,34 +10,24 @@ import { IExpense } from '../models/IExpense';
 export class UserService {
   user: IUser;
   constructor() {
-    this.user = {
-      id: 'aaa',
-      username: 'Ehab',
-      categories: ['Food', 'Transportation'],
-      history: [
-        {
-          date: '2024-12',
-          totalIncome: 2000,
-          expenses: [
-            {
-              category: 'Food',
-              name: 'Lunch',
-              amount: 10
-            },
-            {
-              category: 'Transportation',
-              name: 'Transportation',
-              amount: 5
-            }
-          ],
-          totalExpenses: 15
+    const userJSON = localStorage.getItem('pocket-user');
+      let user: IUser;
+      if(!userJSON){
+        user = {
+          id:'0',
+          username: 'Temp',
+          categories: [],
+          history: []
         }
-      ]
-    }
+        localStorage.setItem('pocket-user',JSON.stringify(user))
+      }else{
+        user = JSON.parse(userJSON)
+      }
+      this.user = user
   }
 
   getUser(): Observable<IUser> {
-    return new Observable<IUser>(observer => {
+    return new Observable<IUser>(observer => { 
       observer.next(this.user);
       observer.complete();
     })
@@ -53,6 +43,7 @@ export class UserService {
   addCategory(name: string): Observable<string> {
     return new Observable<string>(observer => {
       this.user.categories.push(name)
+      this.saveUser()
       observer.next(name)
       observer.complete()
     })
@@ -70,6 +61,7 @@ export class UserService {
       history.expenses.push(expense)
       history.totalExpenses += expense.amount
       history.totalIncome -= expense.amount
+      this.saveUser()
       observer.next(expense)
       observer.complete()
     })
@@ -87,8 +79,27 @@ export class UserService {
         }
         this.user.history.push(history);
       }
+      this.saveUser()
       observer.next(history);
       observer.complete();
     })
   }
+
+  changeHistoryIncome(month: string, amount: number): Observable<IHistory>{
+    return new Observable<IHistory>(observer => {
+      let history = this.user.history.find(h => h.date === month);
+      if(!history){
+        throw new Error("This month doesn't keep track of your expenses")
+      }
+      history.totalIncome = amount
+      this.saveUser()
+      observer.next(history);
+      observer.complete();
+    })
+  }
+
+  private saveUser(){
+    localStorage.setItem('pocket-user', JSON.stringify(this.user))
+  }
 }
+

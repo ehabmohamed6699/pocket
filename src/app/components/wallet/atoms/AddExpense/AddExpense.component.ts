@@ -16,6 +16,7 @@ export class AddExpenseComponent implements OnInit {
   @Input() month: string = '';
   @ViewChild('categorySelect') categorySelect !:ElementRef;
   catName: string = "";
+  error: string = "";
   constructor(
     private userService: UserService,
     public renderer : Renderer2
@@ -39,7 +40,7 @@ export class AddExpenseComponent implements OnInit {
         this.expense = {} as IExpense
       },
       error: (err: Error) => {
-        console.log(err)
+        this.error = err.message
       }
     }
     this.userService.addExpense(this.month, expense).subscribe(options)
