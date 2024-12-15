@@ -29,6 +29,10 @@ export class AddExpenseComponent implements OnInit {
     })
   }
 
+  newExpenseValid():boolean{
+    return !!(this.expense.amount) && !!(this.expense.category) && !!(this.expense.name) 
+  }
+
   addExpense(expense: IExpense): void{
     let options = {
       next: () => {
