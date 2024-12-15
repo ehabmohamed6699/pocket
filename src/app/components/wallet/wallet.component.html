@@ -60,7 +60,12 @@
     
                             </td>
                             <td class="px-6 py-4">
-                                <button (click)="openEditExpense($index)" type="button" class="text-white bg-primary focus:outline-none focus:ring-4 focus:ring-primary font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">Edit</button>
+                                <button (click)="openEditExpense($index)" type="button" class="text-white bg-primary focus:outline-none focus:ring-4 focus:ring-primary font-medium rounded-full text-sm w-12 h-12 text-center me-2 mb-2">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button (click)="deleteExpense($index)" type="button" class="text-white bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-500 font-medium rounded-full text-sm w-12 h-12 text-center me-2 mb-2">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
                             </td>
                         </tr>
                     }
@@ -77,3 +82,4 @@
         </table>
     </div>
 </div>
+

@@ -56,4 +56,8 @@ export class WalletComponent implements OnInit{
     })
   }
 
+  deleteExpense(index:number){
+    this.userService.deleteExpense(this.datePipe.transform(this.date, 'yyyy-MM') || '', index).subscribe()
+  }
+
 }
