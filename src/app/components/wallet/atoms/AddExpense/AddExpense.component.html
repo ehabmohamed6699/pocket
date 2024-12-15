@@ -28,7 +28,7 @@
       <input [(ngModel)]="expense.amount" type="number" min="0" id="amount" name="amount" class="bg-gray-50 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary block w-full p-2.5" placeholder="Amount" required />
     </div>
     <div class="self-end">
-      <input type="submit" [disabled]="!newExpenseValid()" value="Add" class="text-white disabled:bg-secondary/50 bg-primary focus:outline-none focus:ring-4 focus:ring-primary font-medium rounded-full text-sm px-5 py-2.5 text-center">
+      <input type="submit" [disabled]="!newExpenseValid()" value="Add" class="text-white ml-1 disabled:bg-secondary/50 bg-primary focus:outline-none focus:ring-4 focus:ring-primary font-medium rounded-full text-sm px-5 py-2.5 text-center">
     </div>
   </div>
   <p class="text-red-500 mb-2">{{error}}</p>
@@ -36,8 +36,15 @@
 <div #categorySelect id="dropdownDivider" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-64">
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton">
       @for (category of categories; track $index){
-        <li (click)="changeCategory(category)" class="block px-4 py-2 hover:bg-gray-100">{{category}}</li>
-        }
+        <div class="flex items-center justify-between mb-2">
+          <li (click)="changeCategory(category)" class="block cursor-pointer w-full px-4 py-2 hover:bg-gray-100">{{category}}</li>
+          <button (click)="deleteCategory(category)" class="bg-red-500 text-white mr-4 p-1 text-xs rounded-md">
+            <mat-icon>
+              delete
+            </mat-icon>
+          </button>
+        </div>
+      }
     </ul>
     <div class="py-2 px-4">
       <button data-modal-target="new-category-modal" data-modal-toggle="new-category-modal" (click)="openAddCategory()" class="block px-4 py-2 mx-auto rounded-md bg-primary text-white w-full">Add new category</button>

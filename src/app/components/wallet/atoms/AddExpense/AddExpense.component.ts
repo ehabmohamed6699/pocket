@@ -2,12 +2,13 @@ import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@ang
 import { IExpense } from '../../../../models/IExpense';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../../services/user.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-AddExpense',
   templateUrl: './AddExpense.component.html',
   styleUrls: ['./AddExpense.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule, MatIconModule]
 })
 export class AddExpenseComponent implements OnInit {
   expense: IExpense = {} as IExpense;
@@ -48,6 +49,15 @@ export class AddExpenseComponent implements OnInit {
 
   changeCategory(category: string){
     this.expense.category = category
+  }
+
+  deleteCategory(category: string){
+    this.userService.deleteCategory(category).subscribe(cat => {
+      this.categories = this.categories.filter(x => x !== cat)
+      if(this.expense.category === cat){
+        this.changeCategory('')
+      }
+    })
   }
 
   openAddCategory(){

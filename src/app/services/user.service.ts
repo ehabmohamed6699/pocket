@@ -49,6 +49,15 @@ export class UserService {
     })
   }
 
+  deleteCategory(name: string): Observable<string>{
+    return new Observable<string>(observer => {
+      this.user.categories = this.user.categories.filter(x => x !== name);
+      this.saveUser()
+      observer.next(name)
+      observer.complete()
+    })
+  }
+
   addExpense(month: string, expense: IExpense): Observable<IExpense>{
     return new Observable<IExpense>(observer => {
       let history = this.user.history.find(h => h.date === month);
