@@ -1,14 +1,15 @@
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { IHistory } from '../../models/IHistory';
 import { AddExpenseComponent } from "./atoms/AddExpense/AddExpense.component";
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { IExpense } from '../../models/IExpense';
 
 @Component({
   selector: 'app-wallet',
-  imports: [AddExpenseComponent, CurrencyPipe, MatIconModule, FormsModule],
+  imports: [AddExpenseComponent, CurrencyPipe, MatIconModule, FormsModule, JsonPipe],
   templateUrl: './wallet.component.html',
   styleUrl: './wallet.component.css'
 })
@@ -19,6 +20,8 @@ export class WalletComponent implements OnInit{
   history!: IHistory;
   editingIncome: boolean = false;
   currency = new CurrencyPipe('en-US');
+  editingIndex: number = -1
+  editingExpense: IExpense = {} as IExpense
   constructor(
     private userService: UserService
   ){
@@ -38,6 +41,18 @@ export class WalletComponent implements OnInit{
   changeIncome(){
     this.userService.changeHistoryIncome(this.datePipe.transform(this.date, 'yyyy-MM') || '',this.history.totalIncome).subscribe(next => {
       this.setEditingIncome(false)
+    })
+  }
+
+  openEditExpense(index: number) {
+    this.editingIndex = index
+    this.editingExpense = {...this.history.expenses[index]}
+  }
+
+  editExpense(index: number){
+    this.userService.editExpense(this.datePipe.transform(this.date, 'yyyy-MM') || '', this.editingExpense , index).subscribe(() => {
+      this.editingIndex = -1
+      this.editingExpense ={} as IExpense
     })
   }
 

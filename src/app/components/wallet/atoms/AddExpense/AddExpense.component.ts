@@ -39,6 +39,7 @@ export class AddExpenseComponent implements OnInit {
     let options = {
       next: () => {
         this.expense = {} as IExpense
+        this.error = ''
       },
       error: (err: Error) => {
         this.error = err.message

@@ -32,21 +32,38 @@
             </thead>
             <tbody>
                 @for (expense of history.expenses; track $index) {
-                    <tr class="">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            {{expense.name}}
-                        </th>
-                        <td class="px-6 py-4">
-                            {{expense.category}}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{expense.amount | currency:"EGP"}}
-
-                        </td>
-                        <td class="px-6 py-4">
-                            <button type="button" class="text-white bg-primary focus:outline-none focus:ring-4 focus:ring-primary font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">Edit</button>
-                        </td>
-                    </tr>
+                    @if($index === editingIndex){
+                        <tr class="">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <input [(ngModel)]="editingExpense.name" type="text" id="expense" name="expense" class="bg-gray-50 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary block w-full p-2.5" placeholder="Expense Name" required />
+                            </th>
+                            <td class="px-6 py-4">
+                                {{expense.category}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <input [(ngModel)]="editingExpense.amount" type="number" min="0" id="amount" name="amount" class="bg-gray-50 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary block w-full p-2.5" placeholder="Amount" required />
+                            </td>
+                            <td class="px-6 py-4">
+                                <button (click)="editExpense($index)" type="button" class="text-white bg-primary focus:outline-none focus:ring-4 focus:ring-primary font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">Save</button>
+                            </td>
+                        </tr>
+                    }@else {
+                        <tr class="">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{expense.name}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{expense.category}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{expense.amount | currency:"EGP"}}
+    
+                            </td>
+                            <td class="px-6 py-4">
+                                <button (click)="openEditExpense($index)" type="button" class="text-white bg-primary focus:outline-none focus:ring-4 focus:ring-primary font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">Edit</button>
+                            </td>
+                        </tr>
+                    }
                 }
                 <tr class="">
                     <th scope="row" colspan="2" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -59,5 +76,4 @@
             </tbody>
         </table>
     </div>
-
 </div>
